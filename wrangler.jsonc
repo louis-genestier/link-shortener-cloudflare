@@ -3,13 +3,32 @@
  * https://developers.cloudflare.com/workers/wrangler/configuration/
  */
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "link-shortener-cf",
-	"main": "src/index.ts",
-	"compatibility_date": "2025-02-24",
-	"observability": {
-		"enabled": true
-	}
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "link-shortener-cf",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-02-24",
+  "observability": {
+    "enabled": true
+  },
+  "kv_namespaces": [
+    {
+      "binding": "link_shortener",
+      "id": "2af99e0898b240038efe49cd577af689"
+    }
+  ],
+  "unsafe": {
+    "bindings": [
+      {
+        "name": "MY_RATE_LIMITER",
+        "type": "ratelimit",
+        "namespace_id": "1001",
+        "simple": {
+          "limit": 4,
+          "period": 60
+        }
+      }
+    ]
+  }
   /**
    * Smart Placement
    * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
